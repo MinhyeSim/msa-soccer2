@@ -1,10 +1,11 @@
 import React,{useState} from "react"
 import style from "board/style/board-form.module.css"
+import axios from "axios"
 
 
 export default function BoardhtmlForm(){
     const [inputs, setInputs] = useState({})
-    const {passengerId, name, subject} = inputs
+    const {passengerId, name, teamId, subject} = inputs
 
     const handleChange = e => {
         e.preventDefault()
@@ -14,8 +15,13 @@ export default function BoardhtmlForm(){
 
     const handleSubmit = e => {
         e.preventDefault()
-        const boardForm = {passengerId,name,subject}
+        const boardForm = {passengerId,name,teamId, subject}
         alert(`데이터셋 출력 : ${JSON.stringify(boardForm)}`)
+        axios.post('http://localhost:5000/api/board/write', inputs)
+        .then(res => {
+            alert(res.data)
+        })
+        .catch(err => alert(err))
     }
     return (<>
         <h1>게시글 등록</h1>
@@ -44,7 +50,7 @@ export default function BoardhtmlForm(){
                 <label htmlFor="team">Team</label>
                 </div>
                 <div className={style.col75}>
-                <select id="teamId" name="teamId">
+                <select id="teamId" name="teamId" onChange={handleChange} >
                     <option value="K09" selected>Fc seoul</option>
                     <option value="K02">Suwon Samseong blue wings</option>
                     <option value="K04">Incheon United</option>

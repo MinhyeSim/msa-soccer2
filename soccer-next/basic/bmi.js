@@ -1,23 +1,30 @@
+import axios from 'axios';
 import React,{useState} from 'react' 
 
 export default function Bmi (){
 
     const[inputs,setInputs] = useState({})
-    const {name,height,weight} = inputs;
+    const{name,height,weight} = inputs;
+    const[result,setResult] = useState("")
  
-    const handleChange = (e) => { 
+    const handleChange = e => { 
         e.preventDefault()
-        const {value, name} = e.target;
+        const {name, value} = e.target;
         setInputs({...inputs, [name] : value})
     }
         
-    const handleClick = (e) => {
+    const handleClick = e => {
         e.preventDefault()
         const bmiRequest = {name,height,weight}
-        alert(`사용자 이름 : ${JSON.stringify(bmiRequest)}`) 
-           
+        alert(`사용자 이름 : ${JSON.stringify(bmiRequest)}`)
+        axios.post('http://localhost5000/api/bmi/write', inputs)
+        .then(res => {
+            alert(res.data)
+            setResult(JSON.stringify(res.data))
+        })
+        .catch(err => alert(err))           
     }
-    return (<>
+    return (<div>
     <form>
     <h1>Bmi폼</h1>
 
@@ -30,11 +37,13 @@ export default function Bmi (){
 
     <label htmlFor=""><b>weight</b> </label>
     <input type="text" name="weight" onChange={handleChange}/><br/>
+
     <button onClick={handleClick}> BMI 체크</button>
       
     </div>
     </form>
+    <div>결과 : {result}</div>
 
-    </>)
+    </div>)
     
     }

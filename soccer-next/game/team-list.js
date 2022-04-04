@@ -1,13 +1,16 @@
+import axios from "axios"
 import style from "board/style/board-form.module.css"
 import { useState } from "react"
 
 export default function TeamForm(){
     const [inputs, setInputs] = useState({})
+    setInputs({...inputs,[name] : value})
 
 
     const handleSubmit = e => {
         e.preventDefault()
         alert(`등록할 팀 정보 : `)
+        
     }
     return (<>
         <div className={style.container}>
