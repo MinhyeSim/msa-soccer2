@@ -13,37 +13,35 @@ export default function Bmi (){
         setInputs({...inputs, [name] : value})
     }
         
-    const handleClick = e => {
+    const handleSubmit = e => {
         e.preventDefault()
-        const bmiRequest = {name,height,weight}
-        alert(`사용자 이름 : ${JSON.stringify(bmiRequest)}`)
-        axios.post('http://localhost5000/api/bmi/write', inputs)
+        axios.post('http://localhost:5000/api/basic/bmi', inputs)
         .then(res => {
-            alert(res.data)
-            setResult(JSON.stringify(res.data))
+            const bmi = res.data
+            document.getElementById('result-span').innerHTML = `
+            <h3>이름 : ${bmi.name}</h3>
+            <h3>키 : ${bmi.height} cm</h3>
+            <h3>몸무게 : ${bmi.weight}kg</h3>
+            <h3>BMI결과 : ${bmi.bmi}</h3>
+            `
         })
-        .catch(err => alert(err))           
+        .catch(err => alert(err))
     }
     return (<div>
-    <form>
-    <h1>Bmi폼</h1>
+        <form action="" onSubmit={handleSubmit} >
+            <h1>BMI</h1>
+            <div>
+                <label htmlFor="">이름</label>
+                <input type="text" name="name" onChange={handleChange} /><br />
 
-    <div>
-    <label><b>Username</b></label>
-    <input type="text" name="name" onChange={handleChange}/><br/>
+                <label htmlFor="">키</label>
+                <input type="text" name="height" onChange={handleChange} /><br />
 
-    <label htmlFor=""><b>height</b></label>
-    <input type="text" name="height" onChange={handleChange}/><br/>
-
-    <label htmlFor=""><b>weight</b> </label>
-    <input type="text" name="weight" onChange={handleChange}/><br/>
-
-    <button onClick={handleClick}> BMI 체크</button>
-      
-    </div>
-    </form>
-    <div>결과 : {result}</div>
-
+                <label htmlFor="">몸무게</label>
+                <input type="text" name="weight" onChange={handleChange} /><br />
+                <input type="submit" value="BMI 체크" /><br />
+            </div>
+        </form>
+        <div> 결과 : <span id="result-span"></span></div>
     </div>)
-    
-    }
+}
