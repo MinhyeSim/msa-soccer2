@@ -5,12 +5,25 @@ const { json } = require('express/lib/response');
 const mongoose = require('mongoose');
 const app = express();
 const { port, MONGO_URI } = process.env;
-const board = require('./app/routes/board.routes')
+const board = require('./app/routes/board.route')
+const user = require('./app/routes/users.routes')
+const todo = require('./app/routes/todo.route')
+const admin = require('./app/routes/admin.route')
+const basic = require('./app/routes/basic.route')
+const game = require('./app/routes/game.routes')
+
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use('/api/board', board);
+app.use('/api/user', user);
+app.use('/api/admin', admin);
+app.use('/api/basic', basic);
+app.use('/api/todo', todo)
+app.use('/api/game', game);
+
+
 var corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 
@@ -22,12 +35,6 @@ mongoose
 app.listen(port, () => {
     console.log({"현재 시간 : ":new Date().toLocaleString()})
   })
-app.get('/', (req, res) => {
-  res.json({"현재 시간 : ":new Date().toLocaleString()})
-})
-app.get('/api/now', cors(corsOptions),(req, res) => {
-  res.json({"now":new Date().toLocaleString()})
-})
 app.get('/', (req, res) => {
   res.json({"현재 시간 : ":new Date().toLocaleString()})
 })
