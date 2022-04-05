@@ -6,7 +6,7 @@ userRouter.use(function log(req, res, next) {
   next();
 });
 
-userRouter.post("/sign-up",(req,res) => {
+userRouter.use((req,res) => {
   const {username, password, name, telephone} = req.body
   console.log(`넘어온 JSON값 : ${JSON.stringify(req.body)}`)
   console.log(`username 값 : ${JSON.stringify(username)}`)
