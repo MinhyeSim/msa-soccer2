@@ -1,28 +1,28 @@
 require('dotenv').config();
 var cors = require('cors');
 const express = require('express');
-const { json } = require('express/lib/response');
 const mongoose = require('mongoose');
 const app = express();
 const { port, MONGO_URI } = process.env;
-const board = require('./app/routes/board.route')
-const user = require('./app/routes/users.routes')
-const todo = require('./app/routes/todo.route')
-const admin = require('./app/routes/admin.route')
-const basic = require('./app/routes/basic.route')
-const game = require('./app/routes/game.routes')
+
+//const admin = require('./app/routes/admin.route')
+//const basic = require('./app/routes/basic.route')
+const board = require('./app/routes/board.route');
+//const game = require('./app/routes/game.route')
+//const todo = require('./app/routes/todo.route')
+const user = require('./app/routes/user.route');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-app.use('/api/board', board);
-app.use('/api/user', user);
-app.use('/api/admin', admin);
-app.use('/api/basic', basic);
-app.use('/api/todo', todo)
-app.use('/api/game', game);
 
+//app.use('/api/admin', admin);
+//app.use('/api/basic', basic);
+app.use('/api/board', board);
+//app.use('/api/game', game);
+//app.use('/api/todo', todo);
+app.use('/api/user', user);
 
 var corsOptions = {
   origin: 'http://localhost:3000',

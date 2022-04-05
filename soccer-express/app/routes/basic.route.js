@@ -5,3 +5,5 @@ basicRouter.use(function log(req, res, next) {
     console.log('### 경기 서버 ###');
     next();
 });
+
+module.exports = basicRouter;
