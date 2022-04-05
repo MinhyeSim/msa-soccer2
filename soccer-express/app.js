@@ -5,10 +5,12 @@ const { json } = require('express/lib/response');
 const mongoose = require('mongoose');
 const app = express();
 const { port, MONGO_URI } = process.env;
+const board = require('./app/routes/board.routes')
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+app.use('/api/board', board);
 var corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 
