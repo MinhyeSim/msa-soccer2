@@ -1,5 +1,5 @@
 require('dotenv').config();
-var cors = require('cors');
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -24,7 +24,7 @@ app.use('/api/board', board);
 //app.use('/api/todo', todo);
 app.use('/api/user', user);
 
-var corsOptions = {
+const corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 
 }
@@ -33,7 +33,11 @@ mongoose
   .then(() => console.log('Successfully connected to mongodb'))
   .catch(e => console.error(e));
 app.listen(port, () => {
-    console.log({"현재 시간 : ":new Date().toLocaleString()})
+  console.log('***************** ***************** *****************')
+  console.log('***************** ***************** *****************')
+  console.log('********** 서버가 정상적으로 실행되고 있습니다 *********')
+  console.log('***************** ***************** *****************')
+  console.log('***************** ***************** *****************')
   })
 app.get('/', (req, res) => {
   res.json({"현재 시간 : ":new Date().toLocaleString()})
@@ -41,38 +45,9 @@ app.get('/', (req, res) => {
 app.get('/api/now', cors(corsOptions),(req, res) => {
   res.json({"now":new Date().toLocaleString()})
 })
-app.post("/api/board/write",(req, res) => {
-  const {passengerId, name, teamId, subject} = req.body
-  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
-  console.log(`passengerId 값 : ${passengerId}`)
-  console.log(`name값 : ${name}`)
-  console.log(`teamId 값 : ${teamId}`)
-  console.log(`subject 값 : ${subject}`)
-  res.json(req.body)
-})
-function computeBMI(payload){
-  const {name, height, weight} = payload
-      //Obtain user inputs
-      let _height=Number(height);
-      let _weight=Number(weight);
 
-      //Perform calculation
-      let bmi = _weight/Math.pow(_height,2);
 
-      let output = Math.round(bmi*100)/100;
-      var result = {name, height, weight}
-      console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
-      if (output<18.5)
-        result.bmi = "저체중";
-      if (output>=18.5 && output<=25)
-        result.bmi = "정상";
-      if (output>=25 && output<=30)
-        result.bmi = "과체중";
-      if (output>30)
-        result.bmi = "경도비만";
-        console.log(`계산끝난 값들 : ${JSON.stringify(result)}`)
-      return result
-}
+
 app.post("/api/basic/bmi", (req, res)=>{
   const {name, height, weight} = req.body
   console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
@@ -83,24 +58,7 @@ app.post("/api/basic/bmi", (req, res)=>{
   console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
   res.json(json)
 })
-function computeCALC(num1, opcode, num2){
-  console.log(' #### 진입  ### ')
-      //Obtain user inputs
-      var result = {num1, opcode, num2}
-      console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
-      if (opcode == '+')
-        result.calc = (num1)+(num2);
-      if (opcode == '-')
-        result.calc = (num1)-(num2);
-      if (opcode == '*')
-        result.calc = (num1)*(num2);
-      if (opcode == '/')
-        result.calc = (num1)/(num2);
-      if (opcode == '%')
-        result.calc = (num1)%(num2);    
-        console.log(`계산끝난 값들 : ${JSON.stringify(result)}`)
-      return result
-}
+
 app.post("/api/basic/calc", (req, res)=>{
   const {num1, opcode, num2} = req.body
   console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
