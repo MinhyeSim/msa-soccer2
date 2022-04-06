@@ -5,24 +5,18 @@ const mongoose = require('mongoose');
 const app = express();
 const { port, MONGO_URI } = process.env;
 
-//const admin = require('./app/routes/admin.route')
-//const basic = require('./app/routes/basic.route')
-const board = require('./app/routes/board.route');
-//const game = require('./app/routes/game.route')
-//const todo = require('./app/routes/todo.route')
-const user = require('./app/routes/user.route');
+
+require('./app/routes/board.route')('/api/board',app)
+require('./app/routes/user.route')('/api/user', app)
+require('./app/routes/admin.route')('/api/admin',app)
+require('./app/routes/basic.route')('/api/basic',app)
+require('./app/routes/game.route')('/api/game',app)
+require('./app/routes/todo.route')('/api/todo',app)
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
-//app.use('/api/admin', admin);
-//app.use('/api/basic', basic);
-app.use('/api/board', board);
-//app.use('/api/game', game);
-//app.use('/api/todo', todo);
-app.use('/api/user', user);
 
 const corsOptions = {
   origin: 'http://localhost:3000',

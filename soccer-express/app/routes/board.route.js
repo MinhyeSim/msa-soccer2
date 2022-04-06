@@ -1,5 +1,4 @@
 const express = require('express');
-const { write } = require('../controllers/board.controller');
 const boardRouter = express.Router();
 
 boardRouter.use(function log(req, res, next) {
@@ -7,7 +6,7 @@ boardRouter.use(function log(req, res, next) {
     next();
 });
 
-boardRouter.post("/write", write)
+//boardRouter.post("/write", write)
 
 
 module.exports = boardRouter;
