@@ -7,6 +7,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
 const APP = './app/routes'
 //const nodes = ['admin','basic','board','game','todo','user']
 const nodes = ['user']
