@@ -1,6 +1,5 @@
 module.exports = mongoose => {
-    return mongoose.model(
-        'user',
+    return mongoose.model('user',
         mongoose.Schema(
             {username: String,
              password: String,
