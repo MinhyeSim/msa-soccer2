@@ -3,7 +3,7 @@ module.exports = mongoose => {
         mongoose.Schema(
             {passengerId: String,
              name: String,
-             team: String,
+             teamId: String,
              subject: String
             }, { timestamps: true}
         )
